@@ -25,7 +25,7 @@
 #include <winsock2.h> /* winsock.h is included automatically */
 #include <process.h>
 #include <io.h>
-#include <getopt.h> 
+#include <getopt.h>
 #define getopt getopt____
 #else
 #include <unistd.h>
@@ -427,7 +427,7 @@ static struct ndpi_flow *get_ndpi_flow(const struct ndpi_iphdr *iph, u_int16_t i
 	printf("[NDPI] %s(1): not enough memory\n", __FUNCTION__);
 	return(NULL);
       }
-      
+
       memset(newflow, 0, sizeof(struct ndpi_flow));
       newflow->protocol = iph->protocol;
       newflow->lower_ip = lower_ip, newflow->upper_ip = upper_ip;
@@ -459,9 +459,9 @@ static struct ndpi_flow *get_ndpi_flow(const struct ndpi_iphdr *iph, u_int16_t i
     }
   } else {
     struct ndpi_flow *flow = *(struct ndpi_flow**)ret;
-	
+
     if(flow->lower_ip == lower_ip && flow->upper_ip == upper_ip
-       && flow->lower_port == lower_port && flow->upper_port == upper_port)      
+       && flow->lower_port == lower_port && flow->upper_port == upper_port)
       *src = flow->src_id, *dst = flow->dst_id;
     else
       *src = flow->dst_id, *dst = flow->src_id;
@@ -591,7 +591,7 @@ static unsigned int packet_processing(const u_int64_t time, const struct ndpi_ip
 #if 0
   if(ndpi_flow->l4.tcp.host_server_name[0] != '\0')
     printf("%s\n", ndpi_flow->l4.tcp.host_server_name);
-#endif  
+#endif
 
   return 0;
 }
@@ -719,7 +719,7 @@ static void openPcapFileOrDevice(void)
   u_int snaplen = 1514;
   int promisc = 1;
   char errbuf[PCAP_ERRBUF_SIZE];
-  
+
   if((_pcap_handle = pcap_open_live(_pcap_file, snaplen, promisc, 500, errbuf)) == NULL) {
     _pcap_handle = pcap_open_offline(_pcap_file, _pcap_error_buffer);
     capture_until = 0;
@@ -754,7 +754,7 @@ static void openPcapFileOrDevice(void)
     alarm(capture_until);
     signal(SIGALRM, sigproc);
 #endif
-    capture_until += time(NULL);    
+    capture_until += time(NULL);
   }
 }
 
@@ -868,7 +868,7 @@ static void runPcapLoop(void)
 void test_lib() {
   struct timeval begin, end;
   u_int64_t tot_usec;
-  
+
   setupDetection();
   openPcapFileOrDevice();
   signal(SIGINT, sigproc);
@@ -876,7 +876,7 @@ void test_lib() {
   gettimeofday(&begin, NULL);
   runPcapLoop();
   gettimeofday(&end, NULL);
-  
+
   tot_usec = end.tv_sec*1000000 + end.tv_usec - (begin.tv_sec*1000000 + begin.tv_usec);
   closePcapFile();
   printResults(tot_usec);
@@ -902,7 +902,7 @@ int main(int argc, char **argv)
   return 0;
 }
 
-			  
+
 /* ****************************************************** */
 
 #ifdef WIN32
